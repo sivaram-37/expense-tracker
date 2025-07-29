@@ -73,7 +73,7 @@ export default function ExpenseForm() {
   };
 
   return (
-    <div className="card animate-fade-in md:max-w-[700px] mx-auto">
+    <div className="card animate-fade-in">
       <h2 className="text-[17px] sm:text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
         <Plus className="w-5 h-5 text-blue-600" />
         Add New Expense
