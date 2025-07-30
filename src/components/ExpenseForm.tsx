@@ -1,6 +1,6 @@
 "use client";
 
-import { Plus, IndianRupee, AlertCircle } from "lucide-react";
+import { Plus, AlertCircle } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { useForm } from "react-hook-form";
 import { Input } from "./ui/input";
@@ -22,19 +22,6 @@ const style = {
 
 export default function ExpenseForm() {
   const { addExpense } = useExpenseStore();
-
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-
-  //   if (!amount || !description) return;
-
-  //   addExpense({
-  //     amount: parseFloat(amount),
-  //     description: description.trim(),
-  //     category,
-  //     date,
-  //   });
-  // };
 
   const form = useForm({
     resolver: zodResolver(expenseFormSchema),
@@ -89,7 +76,7 @@ export default function ExpenseForm() {
                   <FormLabel className={style.label}>Amount</FormLabel>
                   <FormControl className="relative">
                     <div className="relative">
-                      <IndianRupee className="absolute left-1 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+                      <span className="absolute left-1.5 top-[5px] text-lg text-gray-400">₹</span>
                       <Input
                         {...field}
                         placeholder="0.00"
@@ -164,15 +151,23 @@ export default function ExpenseForm() {
           </Button>
 
           {error?.length && (
-            <div className="px-4 py-3 rounded-md bg-gray-200 dark:bg-gray-950">
-              {error.map((err, ind) => (
-                <span
-                  key={ind}
-                  className="text-sm flex items-center gap-2 text-red-600 dark:text-red-500 py-1">
-                  <AlertCircle size={22} />
-                  {err}
-                </span>
-              ))}
+            <div className="px-4 py-3 rounded-md bg-gray-200 dark:bg-gray-950 flex justify-between">
+              <div>
+                {error.map((err, ind) => (
+                  <span
+                    key={ind}
+                    className="text-sm flex items-center gap-2 text-red-600 dark:text-red-500 py-1">
+                    <AlertCircle size={22} />
+                    {err}
+                  </span>
+                ))}
+              </div>
+              <Button
+                variant={"ghost"}
+                className="h-6 w-6 p-1 text-lg hover:text-white hover:bg-red-500 dark:hover:text-white dark:hover:bg-red-500"
+                onClick={() => setError(null)}>
+                &times;
+              </Button>
             </div>
           )}
         </form>
