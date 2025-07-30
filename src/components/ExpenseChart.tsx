@@ -15,6 +15,7 @@ import {
 } from "recharts";
 import { PieChart as PieChartIcon } from "lucide-react";
 import type { PieLabelRenderProps } from "recharts";
+import EmptyStateCard from "./EmptyStateCard";
 
 const COLORS = [
   "#3B82F6",
@@ -68,17 +69,11 @@ export default function ExpenseChart() {
 
   if (pieData.length === 0) {
     return (
-      <div className="card text-center py-12">
-        <div className="text-gray-400 mb-4">
-          <PieChartIcon className="w-12 h-12 mx-auto" />
-        </div>
-        <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
-          No data to display
-        </h3>
-        <p className="text-gray-500 dark:text-gray-400">
-          Add some expenses to see your spending analytics.
-        </p>
-      </div>
+      <EmptyStateCard
+        icon={<PieChartIcon />}
+        title="No data to display"
+        description="Add some expenses to see your spending analytics."
+      />
     );
   }
 

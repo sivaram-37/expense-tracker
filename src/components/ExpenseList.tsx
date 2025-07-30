@@ -1,20 +1,27 @@
 "use client";
 import { useExpenseStore } from "../stores/useExpenseStore";
-import { Trash2, Calendar } from "lucide-react";
-import NoExpensesCard from "./NoExpensesCard";
+import { Trash2, Calendar, Tag } from "lucide-react";
+import EmptyStateCard from "./EmptyStateCard";
+import { Button } from "./ui/button";
 
 export default function ExpenseList() {
   const { expenses, deleteExpense } = useExpenseStore();
 
   if (expenses.length === 0) {
-    return <NoExpensesCard />;
+    return (
+      <EmptyStateCard
+        icon={<Tag />}
+        title="No expenses yet"
+        description="Add your first expense to get started tracking your spending."
+      />
+    );
   }
 
   return (
     <div className="card animate-fade-in">
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Recent Expenses</h2>
 
-      <div className="space-y-3 max-h-96 overflow-y-auto">
+      <div className="space-y-3">
         {expenses.map((expense) => (
           <div
             key={expense.id}
@@ -38,12 +45,13 @@ export default function ExpenseList() {
               <span className="text-lg font-semibold text-gray-900 dark:text-white">
                 ₹{expense.amount.toFixed(2)}
               </span>
-              <button
+              <Button
+                variant={"ghost"}
                 onClick={() => deleteExpense(expense.id)}
-                className="p-2 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                 aria-label="Delete expense">
-                <Trash2 className="w-4 h-4" />
-              </button>
+                <Trash2 className="w-5 h-4=5" />
+              </Button>
             </div>
           </div>
         ))}
