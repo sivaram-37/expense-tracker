@@ -36,7 +36,7 @@ export default function ExpenseList() {
 
             <div className="flex items-center gap-3">
               <span className="text-lg font-semibold text-gray-900 dark:text-white">
-                ${expense.amount.toFixed(2)}
+                ₹{expense.amount.toFixed(2)}
               </span>
               <button
                 onClick={() => deleteExpense(expense.id)}

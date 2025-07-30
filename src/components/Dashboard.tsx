@@ -22,14 +22,14 @@ export default function Dashboard() {
   const stats = [
     {
       title: "Total Expenses",
-      value: `$${totalExpenses.toFixed(2)}`,
+      value: `₹${totalExpenses.toFixed(2)}`,
       icon: DollarSign,
       color: "text-blue-600",
       bgColor: "bg-blue-100 dark:bg-blue-900",
     },
     {
       title: "This Month",
-      value: `$${monthlyTotal.toFixed(2)}`,
+      value: `₹${monthlyTotal.toFixed(2)}`,
       icon: Calendar,
       color: "text-green-600",
       bgColor: "bg-green-100 dark:bg-green-900",
@@ -91,7 +91,7 @@ export default function Dashboard() {
                             {category}
                           </span>
                           <span className="text-sm text-gray-500 dark:text-gray-400">
-                            ${amount.toFixed(2)}
+                            ₹{amount.toFixed(2)}
                           </span>
                         </div>
                         <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
@@ -128,7 +128,7 @@ export default function Dashboard() {
                     </p>
                   </div>
                   <span className="text-sm font-semibold text-gray-900 dark:text-white">
-                    ${expense.amount.toFixed(2)}
+                    ₹{expense.amount.toFixed(2)}
                   </span>
                 </div>
               ))}

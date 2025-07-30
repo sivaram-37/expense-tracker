@@ -61,7 +61,7 @@ export default function BudgetManager() {
                     </button>
                     <button
                       onClick={() => setEditingCategory(null)}
-                      className="px-3 py-1 bg-gray-300 dark:bg-gray-600 text-gray-700 dark:text-gray-300 text-sm rounded hover:bg-gray-400 dark:hover:bg-gray-500">
+                      className="px-3 py-1 bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-gray-200 text-sm rounded hover:bg-gray-300 dark:hover:bg-gray-500">
                       Cancel
                     </button>
                   </div>
@@ -77,10 +77,10 @@ export default function BudgetManager() {
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="text-gray-600 dark:text-gray-400">
-                    Spent: ${status.spent.toFixed(2)}
+                    Spent: ₹{status.spent.toFixed(2)}
                   </span>
                   <span className="text-gray-600 dark:text-gray-400">
-                    Budget: ${budget.limit.toFixed(2)}
+                    Budget: ₹{budget.limit.toFixed(2)}
                   </span>
                 </div>
 
@@ -105,7 +105,7 @@ export default function BudgetManager() {
                     {percentage.toFixed(1)}% used
                   </span>
                   <span className="text-gray-500 dark:text-gray-400">
-                    ${status.remaining.toFixed(2)} remaining
+                    ₹{status.remaining.toFixed(2)} remaining
                   </span>
                 </div>
               </div>

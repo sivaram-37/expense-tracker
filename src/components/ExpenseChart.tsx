@@ -35,7 +35,7 @@ const renderCustomLabel = ({ name, percent }: PieLabelRenderProps) => {
 
 // Custom tooltip formatter
 const formatTooltip = (value: number, name: string) => {
-  return [`$${value.toFixed(2)}`, name === "value" ? "Amount" : name];
+  return [`₹${value.toFixed(2)}`, name === "value" ? "Amount" : name];
 };
 
 export default function ExpenseChart() {
@@ -121,9 +121,9 @@ export default function ExpenseChart() {
             <BarChart data={monthlyData()}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} tickFormatter={(value) => `$${value}`} />
+              <YAxis tick={{ fontSize: 12 }} tickFormatter={(value) => `₹${value}`} />
               <Tooltip
-                formatter={(value: number) => [`$${value.toFixed(2)}`, "Amount"]}
+                formatter={(value: number) => [`₹${value.toFixed(2)}`, "Amount"]}
                 labelStyle={{ color: "#374151" }}
                 contentStyle={{
                   backgroundColor: "#F9FAFB",
