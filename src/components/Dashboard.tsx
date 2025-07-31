@@ -8,7 +8,7 @@ export default function Dashboard() {
 
   const totalExpenses = getTotalExpenses();
   const expensesByCategory = getExpensesByCategory();
-  const recentExpenses = getRecentExpenses(5);
+  const recentExpenses = getRecentExpenses(4);
 
   // Get current month expenses
   const currentMonth = new Date().getMonth();
