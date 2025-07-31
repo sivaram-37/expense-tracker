@@ -1,6 +1,6 @@
 "use client";
 import { useExpenseStore } from "../stores/useExpenseStore";
-import { DollarSign, TrendingUp, Calendar, PieChart } from "lucide-react";
+import { TrendingUp, Calendar, PieChart, IndianRupeeIcon } from "lucide-react";
 
 export default function Dashboard() {
   const { expenses, getTotalExpenses, getExpensesByCategory, getRecentExpenses } =
@@ -23,7 +23,7 @@ export default function Dashboard() {
     {
       title: "Total Expenses",
       value: `₹${totalExpenses.toFixed(2)}`,
-      icon: DollarSign,
+      icon: IndianRupeeIcon,
       color: "text-blue-600",
       bgColor: "bg-blue-100 dark:bg-blue-900",
     },
