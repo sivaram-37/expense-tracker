@@ -17,16 +17,16 @@ import { PieChart as PieChartIcon } from "lucide-react";
 import type { PieLabelRenderProps } from "recharts";
 import EmptyStateCard from "./EmptyStateCard";
 
-const COLORS = [
-  "#3B82F6",
-  "#EF4444",
-  "#10B981",
-  "#F59E0B",
-  "#8B5CF6",
-  "#EC4899",
-  "#06B6D4",
-  "#84CC16",
-];
+export const CATEGORY_STYLES: Record<string, string> = {
+  "Food & Dining": "#EF4444",
+  Travel: "#3B82F6",
+  Shopping: "#F59E0B",
+  Entertainment: "#8E24AA",
+  "Bills & Utilities": "#10B981",
+  Healthcare: "#EC4899",
+  Education: "#8B5CF6",
+  Other: "#84CC16",
+};
 
 // Custom label function for pie chart
 const renderCustomLabel = ({ name, percent }: PieLabelRenderProps) => {
@@ -78,7 +78,7 @@ export default function ExpenseChart() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
       {/* Category Distribution */}
       <div className="card animate-fade-in">
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
@@ -97,7 +97,7 @@ export default function ExpenseChart() {
                 fill="#8884d8"
                 dataKey="value">
                 {pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell key={`cell-${index}`} fill={CATEGORY_STYLES[entry.name] ?? "#06B6D4"} />
                 ))}
               </Pie>
               <Tooltip formatter={formatTooltip} />
