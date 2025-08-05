@@ -15,12 +15,11 @@ export interface Budget {
 
 export const EXPENSE_CATEGORIES = [
   "Food & Dining",
-  "Transportation",
+  "Travel",
   "Shopping",
   "Entertainment",
   "Bills & Utilities",
   "Healthcare",
-  "Travel",
   "Education",
   "Other",
 ] as const;
