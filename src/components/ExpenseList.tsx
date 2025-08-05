@@ -4,6 +4,17 @@ import { Trash2, Calendar, Tag } from "lucide-react";
 import EmptyStateCard from "./EmptyStateCard";
 import { Button } from "./ui/button";
 
+export const CATEGORY_STYLES: Record<string, string> = {
+  "Food & Dining": "bg-[#D94A1E] text-[#FFF3E0]",
+  Travel: "bg-[#005F99] text-[#E0F7FA]",
+  Shopping: "bg-[#D81B60] text-[#FCE4EC]",
+  Entertainment: "bg-[#8E24AA] text-[#F3E5F5]",
+  "Bills & Utilities": "bg-[#059669] text-[#D1FAE5]",
+  Healthcare: "bg-[#F8E68C] text-[#8D4F2B]",
+  Education: "bg-[#BDECF3] text-[#345C68]",
+  Other: "bg-[#A16207] text-[#FEF3C7]",
+};
+
 export default function ExpenseList() {
   const { expenses, deleteExpense } = useExpenseStore();
 
@@ -21,37 +32,55 @@ export default function ExpenseList() {
     <div className="card animate-fade-in">
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Recent Expenses</h2>
 
-      <div className="space-y-3">
+      <div className="space-y-2 sm:space-y-4">
         {expenses.map((expense) => (
           <div
             key={expense.id}
-            className="flex items-center justify-between p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors animate-slide-up">
-            <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <h3 className="font-medium text-gray-900 dark:text-white">{expense.description}</h3>
-                <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-2 py-1 rounded-full">
+            className="flex flex-col sm:flex-row sm:items-center border justify-between gap-2 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors animate-slide-up">
+            {/* Left section */}
+            <div className="flex flex-col flex-1 gap-2">
+              <div className="flex items-center justify-between">
+                <span
+                  className={`text-xs px-2 py-0.5 rounded-full font-medium ${
+                    CATEGORY_STYLES[expense.category]
+                  }`}>
                   {expense.category}
                 </span>
+                {/* Delete icon for small screens */}
+                <div className="sm:hidden">
+                  <Button
+                    variant={"ghost"}
+                    onClick={() => deleteExpense(expense.id)}
+                    className="p-1 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors"
+                    aria-label="Delete expense">
+                    <Trash2 className="w-5 h-5" />
+                  </Button>
+                </div>
               </div>
-              <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-                <span className="flex items-center gap-1">
-                  <Calendar className="w-3 h-3" />
-                  {new Date(expense.date).toLocaleDateString()}
-                </span>
+
+              <p className="text-sm text-gray-900 dark:text-white">{expense.description}</p>
+
+              <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                <Calendar className="w-3 h-3" />
+                {new Date(expense.date).toLocaleDateString()}
               </div>
             </div>
 
-            <div className="flex items-center gap-3">
-              <span className="text-lg font-semibold text-gray-900 dark:text-white">
-                ₹{expense.amount.toFixed(2)}
+            {/* Right section */}
+            <div className="flex items-center justify-between sm:justify-end gap-2">
+              <span className="text-lg font-bold text-yellow-500 dark:text-yellow-400">
+                ₹ {expense.amount.toFixed(2)}
               </span>
-              <Button
-                variant={"ghost"}
-                onClick={() => deleteExpense(expense.id)}
-                className="p-1 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
-                aria-label="Delete expense">
-                <Trash2 className="w-5 h-4=5" />
-              </Button>
+              {/* Delete icon for larger screens */}
+              <div className="hidden sm:block">
+                <Button
+                  variant={"ghost"}
+                  onClick={() => deleteExpense(expense.id)}
+                  className="p-1 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors"
+                  aria-label="Delete expense">
+                  <Trash2 className="w-5 h-5" />
+                </Button>
+              </div>
             </div>
           </div>
         ))}
