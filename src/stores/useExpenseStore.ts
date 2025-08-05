@@ -1,6 +1,18 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
+import { persist } from "zustand/middleware";
+import CryptoJS from "crypto-js";
 import { Expense, Budget, EXPENSE_CATEGORIES } from "../types";
+
+// data encryption
+const encryptData = (data: string) => {
+  return CryptoJS.AES.encrypt(data, "secret-key").toString();
+};
+
+// data decrytion
+const decryptData = (encryptedData: string) => {
+  const bytes = CryptoJS.AES.decrypt(encryptedData, "secret-key");
+  return bytes.toString(CryptoJS.enc.Utf8);
+};
 
 interface ExpenseStore {
   expenses: Expense[];
@@ -12,6 +24,8 @@ interface ExpenseStore {
   getExpensesByCategory: () => Record<string, number>;
   getBudgetStatus: (category: string) => { spent: number; limit: number; remaining: number };
   getRecentExpenses: (count: number) => Expense[];
+  _hasHydrated: boolean;
+  setHasHydrated: (hydrated: boolean) => void;
 }
 
 export const useExpenseStore = create<ExpenseStore>()(
@@ -97,10 +111,30 @@ export const useExpenseStore = create<ExpenseStore>()(
         const { expenses } = get();
         return expenses.slice(0, count);
       },
+
+      _hasHydrated: false,
+      setHasHydrated: (hydrated) => set({ _hasHydrated: hydrated }),
     }),
     {
       name: "expense-store",
-      storage: createJSONStorage(() => localStorage),
+      storage: {
+        getItem: (name) => {
+          const item = localStorage.getItem(name);
+          if (!item) return null;
+          const decrypted = decryptData(item);
+          return decrypted ? JSON.parse(decrypted) : null;
+        },
+        setItem: (name, value) => {
+          const encrypted = encryptData(JSON.stringify(value));
+          localStorage.setItem(name, encrypted);
+        },
+        removeItem: (name) => localStorage.removeItem(name),
+      },
+      onRehydrateStorage: (state) => {
+        return () => {
+          state?.setHasHydrated(true);
+        };
+      },
     }
   )
 );
