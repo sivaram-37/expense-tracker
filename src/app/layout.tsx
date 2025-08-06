@@ -22,7 +22,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header />
           <div className="h-[calc(100dvh-64px)] transition-colors flex">
             <SideNavbar />
-            <div className="p-4 w-full bg-background text-foreground overflow-auto">{children}</div>
+            <div className="p-2 sm:p-4 w-full bg-background text-foreground overflow-auto">
+              {children}
+            </div>
           </div>
         </ThemeProvider>
       </body>
