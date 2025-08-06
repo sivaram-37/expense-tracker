@@ -16,6 +16,7 @@ import {
 import { PieChart as PieChartIcon } from "lucide-react";
 import type { PieLabelRenderProps } from "recharts";
 import EmptyStateCard from "./EmptyStateCard";
+import OuterCard from "@/layout/OuterCard";
 
 export const CATEGORY_STYLES: Record<string, string> = {
   "Food & Dining": "#EF4444",
@@ -80,7 +81,7 @@ export default function ExpenseChart() {
   return (
     <div className="space-y-5">
       {/* Category Distribution */}
-      <div className="card animate-fade-in">
+      <OuterCard>
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
           Expense Distribution by Category
         </h3>
@@ -104,10 +105,10 @@ export default function ExpenseChart() {
             </PieChart>
           </ResponsiveContainer>
         </div>
-      </div>
+      </OuterCard>
 
       {/* Monthly Trend */}
-      <div className="card animate-fade-in">
+      <OuterCard>
         <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
           Monthly Spending Trend
         </h3>
@@ -131,7 +132,7 @@ export default function ExpenseChart() {
             </BarChart>
           </ResponsiveContainer>
         </div>
-      </div>
+      </OuterCard>
     </div>
   );
 }

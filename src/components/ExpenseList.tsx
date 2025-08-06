@@ -3,6 +3,7 @@ import { useExpenseStore } from "../stores/useExpenseStore";
 import { Trash2, Calendar, Tag } from "lucide-react";
 import EmptyStateCard from "./EmptyStateCard";
 import { Button } from "./ui/button";
+import OuterCard from "@/layout/OuterCard";
 
 export const CATEGORY_STYLES: Record<string, string> = {
   "Food & Dining": "bg-[#D94A1E] text-[#FFF3E0]",
@@ -29,7 +30,7 @@ export default function ExpenseList() {
   }
 
   return (
-    <div className="card animate-fade-in">
+    <OuterCard>
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Recent Expenses</h2>
 
       <div className="space-y-2 sm:space-y-4">
@@ -85,6 +86,6 @@ export default function ExpenseList() {
           </div>
         ))}
       </div>
-    </div>
+    </OuterCard>
   );
 }

@@ -13,6 +13,7 @@ import { CategoryDropdown } from "./CategoryDropdown";
 import { useState } from "react";
 import { useExpenseStore } from "@/stores/useExpenseStore";
 import { redirect } from "next/navigation";
+import OuterCard from "@/layout/OuterCard";
 
 const style = {
   label: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
@@ -60,7 +61,7 @@ export default function ExpenseForm() {
   };
 
   return (
-    <div className="card animate-fade-in">
+    <OuterCard>
       <h2 className="text-[17px] sm:text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
         <Plus className="w-5 h-5 text-blue-600" />
         Add New Expense
@@ -172,6 +173,6 @@ export default function ExpenseForm() {
           )}
         </form>
       </Form>
-    </div>
+    </OuterCard>
   );
 }

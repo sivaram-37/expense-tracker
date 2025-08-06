@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useExpenseStore } from "../stores/useExpenseStore";
 import { Settings, Target, AlertTriangle } from "lucide-react";
+import OuterCard from "@/layout/OuterCard";
 
 export default function BudgetManager() {
   const { budgets, updateBudget, getBudgetStatus } = useExpenseStore();
@@ -23,7 +24,7 @@ export default function BudgetManager() {
   };
 
   return (
-    <div className="card animate-fade-in">
+    <OuterCard>
       <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
         <Target className="w-5 h-5 text-green-600" />
         Budget Manager
@@ -113,6 +114,6 @@ export default function BudgetManager() {
           );
         })}
       </div>
-    </div>
+    </OuterCard>
   );
 }

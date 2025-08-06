@@ -1,4 +1,5 @@
 "use client";
+import OuterCard from "@/layout/OuterCard";
 import { useExpenseStore } from "../stores/useExpenseStore";
 import { TrendingUp, Calendar, PieChart, IndianRupeeIcon } from "lucide-react";
 
@@ -55,7 +56,7 @@ export default function Dashboard() {
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {stats.map((stat) => (
-          <div key={stat.title} className="card animate-fade-in">
+          <OuterCard key={stat.title}>
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-600 dark:text-gray-400">{stat.title}</p>
@@ -65,7 +66,7 @@ export default function Dashboard() {
                 <stat.icon className={`w-6 h-6 ${stat.color}`} />
               </div>
             </div>
-          </div>
+          </OuterCard>
         ))}
       </div>
 
@@ -73,7 +74,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Top Categories */}
         {Object.keys(expensesByCategory).length > 0 && (
-          <div className="card animate-fade-in">
+          <OuterCard>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
               Top Spending Categories
             </h3>
@@ -105,12 +106,12 @@ export default function Dashboard() {
                   );
                 })}
             </div>
-          </div>
+          </OuterCard>
         )}
 
         {/* Recent Expenses */}
         {recentExpenses.length > 0 && (
-          <div className="card animate-fade-in">
+          <OuterCard>
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
               Recent Transactions
             </h3>
@@ -133,7 +134,7 @@ export default function Dashboard() {
                 </div>
               ))}
             </div>
-          </div>
+          </OuterCard>
         )}
       </div>
     </div>
