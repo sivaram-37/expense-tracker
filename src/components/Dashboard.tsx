@@ -1,13 +1,23 @@
 "use client";
+
 import OuterCard from "@/components/OuterCard";
 import { useExpenseStore } from "../stores/useExpenseStore";
-import { TrendingUp, Calendar, PieChart, IndianRupeeIcon } from "lucide-react";
+import { TrendingUp, Calendar, PieChart, IndianRupeeIcon, Layers, History } from "lucide-react";
 import { CATEGORY_STYLES } from "./ExpenseList";
 import { cn } from "@/lib/utils";
+import EmptyStateCard from "./EmptyStateCard";
 
 export default function Dashboard() {
-  const { expenses, getTotalExpenses, getExpensesByCategory, getRecentExpenses } =
+  const { expenses, getTotalExpenses, getExpensesByCategory, getRecentExpenses, _hasHydrated } =
     useExpenseStore();
+
+  if (!_hasHydrated) {
+    return (
+      <OuterCard includeHeader>
+        <div className="p-6 text-center text-sm text-gray-500 dark:text-gray-400">Loading...</div>
+      </OuterCard>
+    );
+  }
 
   const totalExpenses = getTotalExpenses();
   const expensesByCategory = getExpensesByCategory();
@@ -55,7 +65,7 @@ export default function Dashboard() {
 
   return (
     <OuterCard includeHeader>
-      <div className="space-y-5">
+      <div className="space-y-6">
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6">
           {stats.map((stat) => (
@@ -76,13 +86,13 @@ export default function Dashboard() {
         {/* Two column layout for categories and recent expenses */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Top Categories */}
-          {Object.keys(expensesByCategory).length > 0 && (
-            <OuterCard className="bg-gray-200 dark:bg-gray-800">
-              <h3 className="text-sm sm:text-lg font-bold text-gray-900 dark:text-white mb-4">
-                Top Spending Categories
-              </h3>
-              <div className="space-y-3">
-                {Object.entries(expensesByCategory)
+          <OuterCard className="bg-gray-200 dark:bg-gray-800">
+            <h3 className="text-sm sm:text-lg font-bold text-gray-900 dark:text-white mb-4">
+              Top Spending Categories
+            </h3>
+            <div className="space-y-3">
+              {Object.entries(expensesByCategory).length > 0 ? (
+                Object.entries(expensesByCategory)
                   .sort(([, a], [, b]) => b - a)
                   .slice(0, 5)
                   .map(([category, amount]) => {
@@ -105,19 +115,25 @@ export default function Dashboard() {
                         </div>
                       </div>
                     );
-                  })}
-              </div>
-            </OuterCard>
-          )}
+                  })
+              ) : (
+                <EmptyStateCard
+                  icon={<Layers />}
+                  title="No spending categories yet"
+                  description="Add expenses with categories to see them here."
+                />
+              )}
+            </div>
+          </OuterCard>
 
           {/* Recent Expenses */}
-          {recentExpenses.length > 0 && (
-            <OuterCard className="bg-gray-200 dark:bg-gray-800">
-              <h3 className="text-sm sm:text-lg font-bold text-gray-900 dark:text-white mb-4">
-                Recent Transactions
-              </h3>
-              <div className="space-y-2 sm:space-y-4">
-                {recentExpenses.map((expense) => (
+          <OuterCard className="bg-gray-200 dark:bg-gray-800">
+            <h3 className="text-sm sm:text-lg font-bold text-gray-900 dark:text-white mb-4">
+              Recent Transactions
+            </h3>
+            <div className="space-y-2 sm:space-y-4">
+              {recentExpenses.length > 0 ? (
+                recentExpenses.map((expense) => (
                   <div
                     key={expense.id}
                     className="flex justify-between flex-col sm:flex-row gap-2 p-2 bg-gray-300 dark:bg-gray-700 rounded-lg">
@@ -137,10 +153,16 @@ export default function Dashboard() {
                       ₹{expense.amount.toFixed(2)}
                     </span>
                   </div>
-                ))}
-              </div>
-            </OuterCard>
-          )}
+                ))
+              ) : (
+                <EmptyStateCard
+                  icon={<History />}
+                  title="No recent transactions"
+                  description="Add your first expense to see recent transactions here."
+                />
+              )}
+            </div>
+          </OuterCard>
         </div>
       </div>
     </OuterCard>
