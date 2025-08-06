@@ -3,7 +3,7 @@ import { useExpenseStore } from "../stores/useExpenseStore";
 import { Trash2, Calendar, Tag } from "lucide-react";
 import EmptyStateCard from "./EmptyStateCard";
 import { Button } from "./ui/button";
-import OuterCard from "@/layout/OuterCard";
+import OuterCard from "@/components/OuterCard";
 
 export const CATEGORY_STYLES: Record<string, string> = {
   "Food & Dining": "bg-[#D94A1E] text-[#FFF3E0]",
@@ -30,14 +30,12 @@ export default function ExpenseList() {
   }
 
   return (
-    <OuterCard>
-      <h2 className="text-xl font-semibold text-gray-900 dark:text-white mb-6">Recent Expenses</h2>
-
+    <OuterCard includeHeader>
       <div className="space-y-2 sm:space-y-4">
         {expenses.map((expense) => (
           <div
             key={expense.id}
-            className="flex flex-col sm:flex-row sm:items-center border justify-between gap-2 p-3 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors animate-slide-up">
+            className="flex flex-col sm:flex-row sm:items-center border justify-between gap-2 p-3 bg-gray-200 dark:bg-gray-800 rounded-lg hover:bg-gray-300/60 dark:hover:bg-gray-700/60 transition-colors animate-slide-up">
             {/* Left section */}
             <div className="flex flex-col flex-1 gap-2">
               <div className="flex items-center justify-between">
@@ -52,7 +50,7 @@ export default function ExpenseList() {
                   <Button
                     variant={"ghost"}
                     onClick={() => deleteExpense(expense.id)}
-                    className="p-1 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors"
+                    className="p-1 text-red-500 hover:text-red-100 hover:bg-red-600 dark:hover:bg-red-500 rounded-lg transition-colors"
                     aria-label="Delete expense">
                     <Trash2 className="w-5 h-5" />
                   </Button>
@@ -69,15 +67,13 @@ export default function ExpenseList() {
 
             {/* Right section */}
             <div className="flex items-center justify-between sm:justify-end gap-2">
-              <span className="text-lg font-bold text-yellow-500 dark:text-yellow-400">
-                ₹ {expense.amount.toFixed(2)}
-              </span>
+              <span className="text-lg font-bold text-number">₹ {expense.amount.toFixed(2)}</span>
               {/* Delete icon for larger screens */}
               <div className="hidden sm:block">
                 <Button
                   variant={"ghost"}
                   onClick={() => deleteExpense(expense.id)}
-                  className="p-1 text-red-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-lg transition-colors"
+                  className="text-red-500 hover:text-red-100 hover:bg-red-600 dark:hover:bg-red-500 rounded-lg transition-colors"
                   aria-label="Delete expense">
                   <Trash2 className="w-5 h-5" />
                 </Button>

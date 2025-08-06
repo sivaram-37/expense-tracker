@@ -13,12 +13,12 @@ import { CategoryDropdown } from "./CategoryDropdown";
 import { useState } from "react";
 import { useExpenseStore } from "@/stores/useExpenseStore";
 import { redirect } from "next/navigation";
-import OuterCard from "@/layout/OuterCard";
+import OuterCard from "@/components/OuterCard";
 
 const style = {
   label: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
   input:
-    "w-full px-2 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent",
+    "w-full px-2 py-2 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white dark:placeholder:text-white placeholder:text-gray-900 focus:ring-2 focus:ring-blue-500 focus:border-transparent",
 };
 
 export default function ExpenseForm() {
@@ -61,11 +61,7 @@ export default function ExpenseForm() {
   };
 
   return (
-    <OuterCard>
-      <h2 className="text-[17px] sm:text-xl font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-        <Plus className="w-5 h-5 text-blue-600" />
-        Add New Expense
-      </h2>
+    <OuterCard includeHeader>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -77,7 +73,9 @@ export default function ExpenseForm() {
                   <FormLabel className={style.label}>Amount</FormLabel>
                   <FormControl className="relative">
                     <div className="relative">
-                      <span className="absolute left-1.5 top-[5px] text-lg text-gray-400">₹</span>
+                      <span className="absolute left-1.5 top-[5px] text-lg text-gray-500 dark:text-gray-300">
+                        ₹
+                      </span>
                       <Input
                         {...field}
                         placeholder="0.00"

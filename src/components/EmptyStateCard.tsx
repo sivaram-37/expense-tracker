@@ -1,4 +1,4 @@
-import OuterCard from "@/layout/OuterCard";
+import OuterCard from "@/components/OuterCard";
 import { ReactElement, cloneElement } from "react";
 
 type EmptyStateCardProps = {

@@ -16,7 +16,7 @@ import {
 import { PieChart as PieChartIcon } from "lucide-react";
 import type { PieLabelRenderProps } from "recharts";
 import EmptyStateCard from "./EmptyStateCard";
-import OuterCard from "@/layout/OuterCard";
+import OuterCard from "@/components/OuterCard";
 
 export const CATEGORY_STYLES: Record<string, string> = {
   "Food & Dining": "#EF4444",
@@ -37,7 +37,7 @@ const renderCustomLabel = ({ name, percent }: PieLabelRenderProps) => {
 
 // Custom tooltip formatter
 const formatTooltip = (value: number, name: string) => {
-  return [`₹${value.toFixed(2)}`, name === "value" ? "Amount" : name];
+  return [`₹ ${value.toFixed(2)}`, name === "value" ? "Amount" : name];
 };
 
 export default function ExpenseChart() {
@@ -79,60 +79,65 @@ export default function ExpenseChart() {
   }
 
   return (
-    <div className="space-y-5">
-      {/* Category Distribution */}
-      <OuterCard>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
-          Expense Distribution by Category
-        </h3>
-        <div className="h-80">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
-              <Pie
-                data={pieData}
-                cx="50%"
-                cy="50%"
-                labelLine={false}
-                label={renderCustomLabel}
-                outerRadius={80}
-                fill="#8884d8"
-                dataKey="value">
-                {pieData.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={CATEGORY_STYLES[entry.name] ?? "#06B6D4"} />
-                ))}
-              </Pie>
-              <Tooltip formatter={formatTooltip} />
-            </PieChart>
-          </ResponsiveContainer>
-        </div>
-      </OuterCard>
+    <OuterCard includeHeader>
+      <div className="space-y-5">
+        {/* Category Distribution */}
+        <OuterCard className="bg-gray-200 dark:bg-gray-800">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+            Expense Distribution by Category
+          </h3>
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  cx="50%"
+                  cy="50%"
+                  labelLine={false}
+                  label={renderCustomLabel}
+                  outerRadius={80}
+                  fill="#8884d8"
+                  dataKey="value">
+                  {pieData.map((entry) => (
+                    <Cell
+                      key={`cell-${entry.name}`}
+                      fill={CATEGORY_STYLES[entry.name] ?? "#06B6D4"}
+                    />
+                  ))}
+                </Pie>
+                <Tooltip formatter={formatTooltip} />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </OuterCard>
 
-      {/* Monthly Trend */}
-      <OuterCard>
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
-          Monthly Spending Trend
-        </h3>
-        <div className="h-80">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={monthlyData()}>
-              <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="month" tick={{ fontSize: 12 }} />
-              <YAxis tick={{ fontSize: 12 }} tickFormatter={(value) => `₹${value}`} />
-              <Tooltip
-                formatter={(value: number) => [`₹${value.toFixed(2)}`, "Amount"]}
-                labelStyle={{ color: "#374151" }}
-                contentStyle={{
-                  backgroundColor: "#F9FAFB",
-                  border: "1px solid #E5E7EB",
-                  borderRadius: "8px",
-                }}
-              />
-              <Legend />
-              <Bar dataKey="amount" fill="#3B82F6" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
-        </div>
-      </OuterCard>
-    </div>
+        {/* Monthly Trend */}
+        <OuterCard className="bg-gray-200 dark:bg-gray-800">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-6">
+            Monthly Spending Trend
+          </h3>
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={monthlyData()}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="month" tick={{ fontSize: 12 }} />
+                <YAxis tick={{ fontSize: 12 }} tickFormatter={(value) => `₹${value}`} />
+                <Tooltip
+                  formatter={(value: number) => [`₹${value.toFixed(2)}`, "Amount"]}
+                  labelStyle={{ color: "#374151" }}
+                  contentStyle={{
+                    backgroundColor: "#F9FAFB",
+                    border: "1px solid #E5E7EB",
+                    borderRadius: "8px",
+                  }}
+                />
+                <Legend />
+                <Bar dataKey="amount" fill="#3B82F6" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </OuterCard>
+      </div>
+    </OuterCard>
   );
 }

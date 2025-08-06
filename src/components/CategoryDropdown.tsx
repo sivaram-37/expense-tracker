@@ -69,14 +69,14 @@ export function CategoryDropdown({ selectCategory }: CategoryDropdownType) {
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-full cursor-pointer justify-between border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          className="w-full cursor-pointer justify-between border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
           {value
             ? categoryPair.find((category) => category.value === value)?.label
             : "Select Category..."}
           <ChevronsUpDownIcon className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="max-w-[300px] p-0">
+      <PopoverContent className="max-w-[300px] p-0 ">
         <Command>
           <CommandInput placeholder="Search category..." />
           <CommandList>

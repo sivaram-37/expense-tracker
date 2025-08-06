@@ -20,7 +20,7 @@ const DatePicker = ({ selectedDate }: DatePickerType) => {
         <Button
           variant="outline"
           id="date"
-          className="w-full cursor-pointer justify-between font-normal border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+          className="w-full cursor-pointer justify-between font-normal border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-200 dark:bg-gray-800 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 focus:border-transparent">
           {date ? date.toLocaleDateString() : "Select date"}
           <CalendarDays />
         </Button>
