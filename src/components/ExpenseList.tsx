@@ -27,7 +27,7 @@ export default function ExpenseList() {
             icon={<Tags />}
             title="No expenses yet"
             description="Add your first expense to get started tracking your spending."
-            outerCardStyle="bg-gray-300 dark:bg-gray-800"
+            outerCardStyle="bg-gray-200 dark:bg-gray-800"
           />
         ) : (
           expenses.map((expense) => (

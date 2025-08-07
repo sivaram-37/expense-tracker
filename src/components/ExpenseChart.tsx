@@ -75,7 +75,7 @@ export default function ExpenseChart() {
           icon={<PieChartIcon />}
           title="No data to display"
           description="Add some expenses to see your spending analytics."
-          outerCardStyle="bg-gray-300 dark:bg-gray-800"
+          outerCardStyle="bg-gray-200 dark:bg-gray-800"
         />
       ) : (
         <div className="space-y-5">
