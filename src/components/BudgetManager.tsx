@@ -5,11 +5,14 @@ import { Settings, AlertTriangle } from "lucide-react";
 import OuterCard from "@/components/OuterCard";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
+import LoadingCard from "./loadingCard";
 
 export default function BudgetManager() {
-  const { budgets, updateBudget, getBudgetStatus } = useExpenseStore();
+  const { budgets, updateBudget, getBudgetStatus, _hasHydrated } = useExpenseStore();
   const [editingCategory, setEditingCategory] = useState<string | null>(null);
   const [newLimit, setNewLimit] = useState("");
+
+  if (!_hasHydrated) return <LoadingCard />;
 
   const handleUpdateBudget = (category: string) => {
     const limit = parseFloat(newLimit);

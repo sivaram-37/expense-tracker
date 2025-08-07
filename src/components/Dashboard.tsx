@@ -6,17 +6,14 @@ import { TrendingUp, Calendar, PieChart, IndianRupeeIcon, Layers, History } from
 import { CATEGORY_STYLES } from "./ExpenseList";
 import { cn } from "@/lib/utils";
 import EmptyStateCard from "./EmptyStateCard";
+import LoadingCard from "./loadingCard";
 
 export default function Dashboard() {
   const { expenses, getTotalExpenses, getExpensesByCategory, getRecentExpenses, _hasHydrated } =
     useExpenseStore();
 
   if (!_hasHydrated) {
-    return (
-      <OuterCard includeHeader>
-        <div className="p-6 text-center text-sm text-gray-500 dark:text-gray-400">Loading...</div>
-      </OuterCard>
-    );
+    return <LoadingCard />;
   }
 
   const totalExpenses = getTotalExpenses();
@@ -38,28 +35,28 @@ export default function Dashboard() {
       value: `₹ ${totalExpenses.toFixed(2)}`,
       icon: IndianRupeeIcon,
       color: "text-blue-700 dark:text-blue-300",
-      bgColor: "bg-blue-200 dark:bg-blue-800",
+      bgColor: "bg-blue-300 dark:bg-blue-700",
     },
     {
       title: "This Month",
       value: `₹ ${monthlyTotal.toFixed(2)}`,
       icon: Calendar,
       color: "text-green-700 dark:text-green-300",
-      bgColor: "bg-green-200 dark:bg-green-800",
+      bgColor: "bg-green-300 dark:bg-green-700",
     },
     {
       title: "Categories",
       value: Object.keys(expensesByCategory).length.toString(),
       icon: PieChart,
       color: "text-purple-700 dark:text-purple-300",
-      bgColor: "bg-purple-200 dark:bg-purple-900",
+      bgColor: "bg-purple-300 dark:bg-purple-700",
     },
     {
       title: "Transactions",
       value: expenses.length.toString(),
       icon: TrendingUp,
       color: "text-orange-700 dark:text-orange-300",
-      bgColor: "bg-orange-200 dark:bg-orange-800",
+      bgColor: "bg-orange-300 dark:bg-orange-700",
     },
   ];
 
@@ -104,7 +101,9 @@ export default function Dashboard() {
                             <span className="text-sm font-medium text-gray-900 dark:text-white">
                               {category}
                             </span>
-                            <span className="text-sm text-number">₹{amount.toFixed(2)}</span>
+                            <span className="text-sm font-bold text-number">
+                              ₹{amount.toFixed(2)}
+                            </span>
                           </div>
                           <div className="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-2">
                             <div
@@ -143,13 +142,16 @@ export default function Dashboard() {
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400 space-x-1">
                         <span
-                          className={cn("px-2 py-1 rounded-lg", CATEGORY_STYLES[expense.category])}>
+                          className={cn(
+                            "px-1.5 py-[3px] rounded-lg",
+                            CATEGORY_STYLES[expense.category]
+                          )}>
                           {expense.category}
                         </span>
                         <span>• {new Date(expense.date).toLocaleDateString()}</span>
                       </p>
                     </div>
-                    <span className="text-lg font-bold text-number">
+                    <span className="text-lg font-bold text-number self-center">
                       ₹{expense.amount.toFixed(2)}
                     </span>
                   </div>

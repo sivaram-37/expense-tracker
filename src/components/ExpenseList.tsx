@@ -4,6 +4,7 @@ import { Trash2, Calendar, Tags } from "lucide-react";
 import EmptyStateCard from "./EmptyStateCard";
 import { Button } from "./ui/button";
 import OuterCard from "@/components/OuterCard";
+import LoadingCard from "./loadingCard";
 
 export const CATEGORY_STYLES: Record<string, string> = {
   "Food & Dining": "bg-[#D94A1E] text-[#FFF3E0]",
@@ -17,7 +18,9 @@ export const CATEGORY_STYLES: Record<string, string> = {
 };
 
 export default function ExpenseList() {
-  const { expenses, deleteExpense } = useExpenseStore();
+  const { expenses, deleteExpense, _hasHydrated } = useExpenseStore();
+
+  if (!_hasHydrated) return <LoadingCard />;
 
   return (
     <OuterCard includeHeader>

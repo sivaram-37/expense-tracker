@@ -14,9 +14,10 @@ import {
   Legend,
 } from "recharts";
 import { PieChart as PieChartIcon } from "lucide-react";
-import type { PieLabelRenderProps } from "recharts";
 import EmptyStateCard from "./EmptyStateCard";
 import OuterCard from "@/components/OuterCard";
+import LoadingCard from "./loadingCard";
+import { formatTooltip, renderCustomLabel } from "@/lib/utils";
 
 export const CATEGORY_STYLES: Record<string, string> = {
   "Food & Dining": "#EF4444",
@@ -29,19 +30,10 @@ export const CATEGORY_STYLES: Record<string, string> = {
   Other: "#84CC16",
 };
 
-// Custom label function for pie chart
-const renderCustomLabel = ({ name, percent }: PieLabelRenderProps) => {
-  if (percent === undefined) return name; // fallback
-  return `${name} ${(percent * 100).toFixed(0)}%`;
-};
-
-// Custom tooltip formatter
-const formatTooltip = (value: number, name: string) => {
-  return [`₹ ${value.toFixed(2)}`, name === "value" ? "Amount" : name];
-};
-
 export default function ExpenseChart() {
-  const { getExpensesByCategory, expenses } = useExpenseStore();
+  const { getExpensesByCategory, expenses, _hasHydrated } = useExpenseStore();
+
+  if (!_hasHydrated) return <LoadingCard />;
 
   const expensesByCategory = getExpensesByCategory();
 
