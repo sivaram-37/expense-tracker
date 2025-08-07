@@ -64,7 +64,7 @@ export default function Dashboard() {
     <OuterCard includeHeader>
       <div className="space-y-6">
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-2 sm:gap-6">
           {stats.map((stat) => (
             <OuterCard key={stat.title} className="sm:p-4 bg-gray-200 dark:bg-gray-800">
               <div className="flex items-center justify-between">
@@ -87,7 +87,7 @@ export default function Dashboard() {
             <h3 className="text-sm sm:text-lg font-bold text-gray-900 dark:text-white mb-4">
               Top Spending Categories
             </h3>
-            <div className="space-y-3">
+            <div className="space-y-2 sm:space-y-4">
               {Object.entries(expensesByCategory).length > 0 ? (
                 Object.entries(expensesByCategory)
                   .sort(([, a], [, b]) => b - a)
@@ -95,17 +95,19 @@ export default function Dashboard() {
                   .map(([category, amount]) => {
                     const percentage = (amount / totalExpenses) * 100;
                     return (
-                      <div key={category} className="flex items-center justify-between">
+                      <div
+                        key={category}
+                        className="flex items-center justify-between p-3 bg-gray-100 dark:bg-gray-900 rounded-lg">
                         <div className="flex-1">
                           <div className="flex items-center justify-between mb-1">
                             <span className="text-sm font-medium text-gray-900 dark:text-white">
                               {category}
                             </span>
                             <span className="text-sm font-bold text-number">
-                              ₹{amount.toFixed(2)}
+                              ₹ {amount.toFixed(2)}
                             </span>
                           </div>
-                          <div className="w-full bg-gray-200 dark:bg-gray-800 rounded-full h-2">
+                          <div className="w-full bg-gray-300 dark:bg-gray-700 rounded-full h-2">
                             <div
                               className="bg-blue-600 h-2 rounded-full transition-all duration-300"
                               style={{ width: `${percentage}%` }}
@@ -135,24 +137,21 @@ export default function Dashboard() {
                 recentExpenses.map((expense) => (
                   <div
                     key={expense.id}
-                    className="flex justify-between flex-col sm:flex-row gap-2 p-2 bg-gray-300 dark:bg-gray-700 rounded-lg">
+                    className="flex justify-between flex-col sm:flex-row gap-2 p-3 bg-gray-100 dark:bg-gray-900 rounded-lg">
                     <div className="flex-1 space-y-3">
                       <p className="text-sm font-medium text-gray-900 dark:text-white">
                         {expense.description}
                       </p>
                       <p className="text-xs text-gray-500 dark:text-gray-400 space-x-1">
                         <span
-                          className={cn(
-                            "px-1.5 py-[3px] rounded-lg",
-                            CATEGORY_STYLES[expense.category]
-                          )}>
+                          className={cn("px-2 py-1 rounded-lg", CATEGORY_STYLES[expense.category])}>
                           {expense.category}
                         </span>
                         <span>• {new Date(expense.date).toLocaleDateString()}</span>
                       </p>
                     </div>
-                    <span className="text-lg font-bold text-number self-center">
-                      ₹{expense.amount.toFixed(2)}
+                    <span className="text-lg font-bold text-number sm:self-center">
+                      ₹ {expense.amount.toFixed(2)}
                     </span>
                   </div>
                 ))
