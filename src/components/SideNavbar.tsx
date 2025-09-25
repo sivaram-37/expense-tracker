@@ -44,7 +44,6 @@ const SideNavbar = () => {
         <nav className="space-y-3">
           {tabs.map(({ id, label, icon }) => renderLink(id, label, icon, path === id))}
         </nav>
-        <nav>{renderLink("/settings", "Settings", Settings, path === "/settings")}</nav>
       </div>
 
       {/* Mobile Sidebar */}
@@ -52,7 +51,6 @@ const SideNavbar = () => {
         <nav className="space-y-2">
           {tabs.map(({ id, label, icon }) => renderLink(id, label, icon, path === id, false))}
         </nav>
-        <nav>{renderLink("/settings", "Settings", Settings, path === "/settings", false)}</nav>
       </div>
     </>
   );
